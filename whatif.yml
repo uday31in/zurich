@@ -67,6 +67,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      
+      - name: "modules"
+        shell: pwsh
+        run: |
+          Get-Module -ListAvailable
 
       - name: "Connect"
         shell: pwsh

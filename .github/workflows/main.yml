@@ -108,5 +108,5 @@ jobs:
       - name: 'Deploy'
         shell: pwsh
         run: |
-          Get-AzContext
+          Get-AzContext | fl
         

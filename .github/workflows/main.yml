@@ -53,13 +53,12 @@ jobs:
     environment: alpha
 
     steps:
-
       - name: "Checkout"
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      – name: azure login
+      - name: "azure login"
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}

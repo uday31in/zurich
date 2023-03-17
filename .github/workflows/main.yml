@@ -43,10 +43,10 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true 
 
-      #- name: 'modules'
-      #  shell: pwsh
-      #  run: |
-      #    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+      - name: 'modules'
+        shell: pwsh
+        run: |
+          Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
       - name: alpha-context
         uses: azure/powershell@v1
@@ -85,10 +85,10 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true 
 
-      #- name: 'modules'
-      #  shell: pwsh
-      #  run: |
-      #    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+      - name: 'modules'
+        shell: pwsh
+        run: |
+          Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
       - name: gold-context
         uses: azure/powershell@v1

@@ -1,0 +1,16 @@
+- name: Azure Login
+  uses: Azure/login@v1.4.6
+  with:
+    # ClientId of the Azure Service principal created.
+    client-id: # optional
+    # TenantId of the Azure Service principal created.
+    tenant-id: # optional
+    # Azure subscriptionId
+    subscription-id: # optional
+    enable-AzPSSession: # optional
+    # Name of the environment. Supported values are azurecloud, azurestack, azureusgovernment, azurechinacloud, azuregermancloud. Default being azurecloud
+    
+    # Set this value to true to enable support for accessing tenants without subscriptions
+    allow-no-subscriptions: # optional
+    # Provide audience field for access-token. Default value is api://AzureADTokenExchange
+    audience: # optional, default is api://AzureADTokenExchange

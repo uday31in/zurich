@@ -43,25 +43,61 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true 
 
-      - name: 'Run az commands'
-        run: |
-          az account show
-          az group list
-          pwd 
+      #- name: 'modules'
+      #  shell: pwsh
+      #  run: |
+      #    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: 'modules'
-        shell: pwsh
-        run: |
-          Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
-
-      - name: Run Azure PowerShell script
+      - name: alpha-context
         uses: azure/powershell@v1
         with:
           inlineScript: |
             Get-AzContext
           azPSVersion: "latest"
       
-      - name: 'Deploy'
+      - name: 'Deploy Alpha'
+        shell: pwsh
+        run: |
+          Get-AzContext | fl
+ 
+ ########################################################################
+ #                       G  O   L   D                                   # 
+ ######################################################################## 
+
+  
+  gold:
+
+    name: "gold"
+    runs-on: ubuntu-latest
+    environment: gold
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "azure login"
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true 
+
+      #- name: 'modules'
+      #  shell: pwsh
+      #  run: |
+      #    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
+      - name: gold-context
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzContext
+          azPSVersion: "latest"
+      
+      - name: 'Deploy Gold'
         shell: pwsh
         run: |
           Get-AzContext | fl

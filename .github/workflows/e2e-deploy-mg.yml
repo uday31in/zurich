@@ -58,7 +58,7 @@ jobs:
       - name: 'Deploy Alpha'
         shell: pwsh
         run: |
-          Get-AzContext | fl
+          Get-AzManagementGroup
  
  ########################################################################
  #                       G  O   L   D                                   # 
@@ -66,7 +66,8 @@ jobs:
 
   
   gold:
-
+    needs: alpha
+    
     name: "gold"
     runs-on: ubuntu-latest
     environment: gold
@@ -100,4 +101,4 @@ jobs:
       - name: 'Deploy Gold'
         shell: pwsh
         run: |
-          Get-AzContext | fl
+          Get-AzManagementGroup

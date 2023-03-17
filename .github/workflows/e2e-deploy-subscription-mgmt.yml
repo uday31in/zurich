@@ -1,0 +1,104 @@
+---
+name: "e2e-deploy"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+      
+permissions:
+    id-token: write
+    contents: write
+    pull-requests: write
+    
+env: 
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_ENVIRONMENT: ${{ secrets.ARM_ENVIRONMENT }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+  modulesFolder: "~/.local/share/powershell/Modules"
+
+jobs:
+
+  alpha:
+
+    name: "alpha"
+    runs-on: ubuntu-latest
+    environment: alpha
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "azure login"
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true 
+
+      - name: 'modules'
+        shell: pwsh
+        run: |
+          Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
+      - name: alpha-context
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzContext
+          azPSVersion: "latest"
+      
+      - name: 'Deploy Alpha'
+        shell: pwsh
+        run: |
+          Get-AzContext | fl
+ 
+ ########################################################################
+ #                       G  O   L   D                                   # 
+ ######################################################################## 
+
+  
+  gold:
+    needs: alpha
+    
+    name: "gold"
+    runs-on: ubuntu-latest
+    environment: gold
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "azure login"
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true 
+
+      - name: 'modules'
+        shell: pwsh
+        run: |
+          Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
+      - name: gold-context
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzContext
+          azPSVersion: "latest"
+      
+      - name: 'Deploy Gold'
+        shell: pwsh
+        run: |
+          Get-AzContext | fl

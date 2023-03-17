@@ -42,6 +42,12 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           allow-no-subscriptions: true
           enable-AzPSSession: true 
+
+      - name: 'Run az commands'
+        run: |
+          az account show
+          az group list
+          pwd 
      
       - name: 'Deploy'
         shell: pwsh

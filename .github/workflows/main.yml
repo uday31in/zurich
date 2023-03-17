@@ -48,7 +48,12 @@ jobs:
           az account show
           az group list
           pwd 
-  
+
+      - name: 'modules'
+        shell: pwsh
+        run: |
+          Get-Module -ListAvailable
+
       - name: 'Deploy'
         shell: pwsh
         run: |

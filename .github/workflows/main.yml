@@ -48,7 +48,7 @@ jobs:
           az account show
           az group list
           pwd 
-     
+  
       - name: 'Deploy'
         shell: pwsh
         run: |

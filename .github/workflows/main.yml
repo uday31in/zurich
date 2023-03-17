@@ -1,5 +1,5 @@
 ---
-name: "AzOps - Push"
+name: "e2e-deploy"
 
 on:
 

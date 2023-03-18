@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "value": "gold-1-mgmt1"
+        },
+        "workspaceName": {
+            "value": "gold-1-law"
+        },
+        "workspaceRegion": {
+            "value": "eastus"
+        },
+        "automationAccountName": {
+            "value": ""
+        },
+        "automationRegion": {
+            "value": "westeurope"
+        },
+        "retentionInDays": {
+            "value": "30"
+        },
+        "enableChangeTracking": {
+            "value": "No"
+        },
+        "enableUpdateMgmt": {
+            "value": "No"
+        },
+        "eventHubNamespaceName": {
+            "value": "gold1ehn"
+        },
+        "dataExports": {
+            "value": []
+        }
+    }
+}

@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "topLevelManagementGroupPrefix": {
-            "value": "gs-co"
+            "value": "alpha-1"
         }
         /*
         "scope": {
             "value": "alpha"
         }
         */
-        
+
     }
 }

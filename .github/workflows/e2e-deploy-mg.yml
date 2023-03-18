@@ -63,7 +63,8 @@ jobs:
       - name: 'Deploy Alpha'
         shell: pwsh
         run: |
-          ./deployment/mgmt-deployment.ps1  -enviornment alpha
+          ./deployment/mgmt-deployment.ps1
+          Invoke-AzDeployment -enviornment alpha
 
 
  ########################################################################

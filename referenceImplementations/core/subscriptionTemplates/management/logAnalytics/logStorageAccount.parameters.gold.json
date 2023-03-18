@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "mgmtStorageRgName": {
+            "value": "gold-1-nwlog-eastus"
+        },
+        "storageAccountName": {
+            "value": "gold1eastusfgrdc55fji"
+        },
+        "storageLocation": {
+            "value": "eastus"
+        },
+        "logAnalyticsWorkspaceId": {
+            "value": "/subscriptions/f86ad04a-4680-4eae-84b1-557f52d9bffc/resourceGroups/gold-1-mgmt/providers/Microsoft.OperationalInsights/workspaces/gold-1-law"
+        }
+    }
+}

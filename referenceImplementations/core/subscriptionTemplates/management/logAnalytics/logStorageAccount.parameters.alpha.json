@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "mgmtStorageRgName": {
+            "value": "alpha-1-nwlog-eastus"
+        },
+        "storageAccountName": {
+            "value": "alpha1eastusfgrdc55fji"
+        },
+        "storageLocation": {
+            "value": "eastus"
+        },
+        "logAnalyticsWorkspaceId": {
+            "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+        }
+    }
+}

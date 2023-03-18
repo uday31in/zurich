@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
-            "value": "alpha-1-mgmt"
+            "value": "alpha-1-mgmt1"
         },
         "workspaceName": {
             "value": "alpha-1-law"

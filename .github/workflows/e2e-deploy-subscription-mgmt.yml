@@ -50,26 +50,37 @@ jobs:
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: alpha-context
+      - name: alpha-context-set
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            Get-AzContext
+            Set-AzContext -SubscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4
           azPSVersion: "latest"
-      
-      - name: 'Deploy Alpha'
+
+      - name: 'alpha-deploy-template'
         shell: pwsh
         run: |
-          Get-AzContext | fl
- 
+          $enviornment = "alpha"
+          Get-ChildItem -Recurse -Path ./referenceImplementations/core/subscriptionTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+              $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+              $parameters = @{
+                  'Name'                        = 'azops'
+                  'Location'                    = 'eastus'
+                  'TemplateFile'                = $_.FullName
+                  'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
+                  'SkipTemplateParameterPrompt' = $true
+              }
+              $deploymentCommand = 'New-AzSubscriptionDeployment'
+              New-AzSubscriptionDeployment @parameters -WhatIf
+          }
  ########################################################################
- #                       G  O   L   D                                   # 
- ######################################################################## 
+ #                       G  O   L   D                                   #
+ ########################################################################
 
-  
+
   gold:
     needs: alpha
-    
+
     name: "gold"
     runs-on: ubuntu-latest
     environment: gold
@@ -93,14 +104,26 @@ jobs:
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: gold-context
+      - name: gold-context-set
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            Get-AzContext
+            Set-AzContext -SubscriptionId f9ba0167-1fc6-425a-b052-0fbc9937a80f
           azPSVersion: "latest"
-      
-      - name: 'Deploy Gold'
+
+      - name: 'alpha-deploy-template'
         shell: pwsh
         run: |
-          Get-AzContext | fl
+          $enviornment = "gold"
+          Get-ChildItem -Recurse -Path ./referenceImplementations/core/subscriptionTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+              $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+              $parameters = @{
+                  'Name'                        = 'azops'
+                  'Location'                    = 'eastus'
+                  'TemplateFile'                = $_.FullName
+                  'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
+                  'SkipTemplateParameterPrompt' = $true
+              }
+              $deploymentCommand = 'New-AzSubscriptionDeployment'
+              New-AzSubscriptionDeployment @parameters -WhatIf
+          }

@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "value": "alpha-1-mgmt"
+        },
+        "workspaceName": {
+            "value": "alpha-1-law"
+        },
+        "workspaceRegion": {
+            "value": "eastus"
+        },
+        "automationAccountName": {
+            "value": ""
+        },
+        "automationRegion": {
+            "value": "westeurope"
+        },
+        "retentionInDays": {
+            "value": "30"
+        },
+        "enableChangeTracking": {
+            "value": "No"
+        },
+        "enableUpdateMgmt": {
+            "value": "No"
+        },
+        "eventHubNamespaceName": {
+            "value": "alpha1ehn"
+        },
+        "dataExports": {
+            "value": []
+        }
+    }
+}

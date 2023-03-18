@@ -1,12 +1,12 @@
 ---
-name: "e2e-deploy"
+name: "e2e-deploy-mgmt-subscription"
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'referenceImplementations/core/subscriptionTemplates/**'
+      - 'referenceImplementations/core/subscriptionTemplates/management/**'
   workflow_dispatch:
 
 permissions:

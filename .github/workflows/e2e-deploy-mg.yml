@@ -1,12 +1,12 @@
 ---
-name: "e2e-deploy"
+name: "e2e-deploy-mg"
 
 on:
   push:
     branches:
       - main
-#    paths:
-#      - 'referenceImplementations/core/managementGroupTemplates/**'
+    paths:
+      - 'referenceImplementations/core/managementGroupTemplates/**'
   workflow_dispatch:
 
 permissions:

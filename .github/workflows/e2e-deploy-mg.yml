@@ -6,13 +6,13 @@ on:
     branches:
       - main
   workflow_dispatch:
-      
+
 permissions:
     id-token: write
     contents: write
     pull-requests: write
-    
-env: 
+
+env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_ENVIRONMENT: ${{ secrets.ARM_ENVIRONMENT }}
@@ -41,7 +41,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           allow-no-subscriptions: true
-          enable-AzPSSession: true 
+          enable-AzPSSession: true
 
       - name: 'modules'
         shell: pwsh
@@ -54,20 +54,26 @@ jobs:
           inlineScript: |
             Get-AzContext
           azPSVersion: "latest"
-      
+
       - name: 'Deploy Alpha'
         shell: pwsh
         run: |
           Get-AzManagementGroup
- 
- ########################################################################
- #                       G  O   L   D                                   # 
- ######################################################################## 
 
-  
+      - name: 'Deploy Alpha'
+        shell: pwsh
+        run: |
+          ./deployment/mgmt-deployment.ps1  -enviornment alpha
+
+
+ ########################################################################
+ #                       G  O   L   D                                   #
+ ########################################################################
+
+
   gold:
     needs: alpha
-    
+
     name: "gold"
     runs-on: ubuntu-latest
     environment: gold
@@ -84,7 +90,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           allow-no-subscriptions: true
-          enable-AzPSSession: true 
+          enable-AzPSSession: true
 
       - name: 'modules'
         shell: pwsh
@@ -97,7 +103,7 @@ jobs:
           inlineScript: |
             Get-AzContext
           azPSVersion: "latest"
-      
+
       - name: 'Deploy Gold'
         shell: pwsh
         run: |

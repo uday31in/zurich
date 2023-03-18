@@ -8,6 +8,14 @@
                 "description": "Provide prefix for the management group structure."
             }
         },
+        /*
+        "scope": {
+            "type": "string",
+            "metadata": {
+                "description": "deployment scope."
+            }
+        },
+        */
         "platformMgs": {
             "type": "array",
             "defaultValue": [
@@ -100,7 +108,7 @@
                     }
                 }
             }
-        },         
+        },
         {
             // Create management group for decommissioned subscriptions
             "type": "Microsoft.Management/managementGroups",
@@ -118,7 +126,7 @@
                     }
                 }
             }
-        },        
+        },
         {
             // Create child management groups for platform resources
             "condition": "[not(empty(parameters('platformMgs')))]",

@@ -4,7 +4,6 @@
     "parameters": {
         "topLevelManagementGroupPrefix": {
             "value": "gold"
-            
         }
     }
 }

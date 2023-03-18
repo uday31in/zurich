@@ -10,15 +10,19 @@ function Invoke-AzDeployment {
 
         [string]
         $enviornment = "alpha"
+
     )
     process {
         Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+
+            Write-Warning "Processing Deployment: $_"
+
             $rootMgmtName = Get-AzManagementGroup -GroupName 'alpha' -ErrorVariable errorVariable -ErrorAction SilentlyContinue
-            $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName)
+            $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
             $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + "." + $enviornment + $_.Extension))
 
             $parameters = @{
-                'Name'                        = 'azops'
+                'Name'                        = ('azops-' + $_.BaseName)
                 'Location'                    = 'eastus'
                 'ManagementGroupId'           = $managementGroupID
                 'TemplateFile'                = $_.FullName
@@ -31,3 +35,4 @@ function Invoke-AzDeployment {
         }
     }
 }
+Invoke-AzDeployment

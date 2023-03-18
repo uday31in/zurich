@@ -24,7 +24,7 @@ function Invoke-AzDeployment {
                 'TemplateFile'                = $_.FullName
                 'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
                 #'TemplateParameterObject'     = @{scope='alpha'}
-                #'SkipTemplateParameterPrompt' = $true
+                'SkipTemplateParameterPrompt' = $true
             }
             $deploymentCommand = 'New-AzManagementGroupDeployment'
             New-AzManagementGroupDeployment @parameters

@@ -13,7 +13,7 @@ function Invoke-AzDeployment {
 
     )
     process {
-        Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+        Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
 
             Write-Warning "Processing Deployment: $_"
 

@@ -66,8 +66,12 @@ jobs:
         shell: pwsh
         run: |
            $enviornment = 'alpha'
-           Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
-            $rootMgmtName = Get-AzManagementGroup -GroupName 'alpha' -ErrorVariable errorVariable -ErrorAction SilentlyContinue
+           Write-Host "Enviornment: $enviornment"
+           Get-ChildItem -Recurse -Path referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+
+            Write-Host "Processing Deployment: $_"
+
+            $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue
             $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName)
             $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + "." + $enviornment + $_.Extension))
 
@@ -81,10 +85,9 @@ jobs:
                 'SkipTemplateParameterPrompt' = $true
             }
             $deploymentCommand = 'New-AzManagementGroupDeployment'
+            Write-Host "Starting : $deploymentCommand"
             New-AzManagementGroupDeployment @parameters
-          }
-
-
+           }
  ########################################################################
  #                       G  O   L   D                                   #
  ########################################################################

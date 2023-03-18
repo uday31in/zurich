@@ -67,6 +67,7 @@ jobs:
         run: |
            $enviornment = 'alpha'
            Write-Host "Enviornment: $enviornment"
+           Write-Warning "Enviornment: $enviornment"
            Get-ChildItem -Recurse -Path referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
 
             Write-Host "Processing Deployment: $_"

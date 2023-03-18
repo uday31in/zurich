@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "topLevelManagementGroupPrefix": {
+            "value": "alpha-1"
+        },
+        "principalId": {
+            "value": "7df3c5c7-30e2-4827-a17a-91c91107c7eb"
+        },
+        "roleDefinitionId": {
+            "value": "alpha"
+        }
+    }
+}

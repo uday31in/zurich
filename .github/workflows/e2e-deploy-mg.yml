@@ -55,7 +55,7 @@ jobs:
             Get-AzContext
           azPSVersion: "latest"
 
-      - name: 'Deploy Alpha'
+      - name: 'Get Alpha Management Group'
         shell: pwsh
         run: |
           Get-AzManagementGroup
@@ -63,8 +63,24 @@ jobs:
       - name: 'Deploy Alpha'
         shell: pwsh
         run: |
-          ./deployment/mgmt-deployment.ps1
-          Invoke-AzDeployment -enviornment alpha
+           $enviornment = 'alpha'
+           Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+            $rootMgmtName = Get-AzManagementGroup -GroupName 'alpha' -ErrorVariable errorVariable -ErrorAction SilentlyContinue
+            $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName)
+            $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + "." + $enviornment + $_.Extension))
+
+            $parameters = @{
+                'Name'                        = 'azops'
+                'Location'                    = 'eastus'
+                'ManagementGroupId'           = $managementGroupID
+                'TemplateFile'                = $_.FullName
+                'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
+                #'TemplateParameterObject'     = @{scope='alpha'}
+                'SkipTemplateParameterPrompt' = $true
+            }
+            $deploymentCommand = 'New-AzManagementGroupDeployment'
+            New-AzManagementGroupDeployment @parameters
+          }
 
 
  ########################################################################
@@ -98,7 +114,7 @@ jobs:
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: gold-context
+      - name: 'Get Gold Management Group'
         uses: azure/powershell@v1
         with:
           inlineScript: |

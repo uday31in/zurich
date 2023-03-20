@@ -62,16 +62,20 @@ jobs:
         run: |
           $enviornment = "alpha"
           Get-ChildItem -Recurse -Path ./referenceImplementations/core/subscriptionTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+
+              Write-Warning "Processing Deployment: $_"
+
               $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+
               $parameters = @{
-                  'Name'                        = 'azops'
+                  'Name'                        = ('azops-' + $_.BaseName)
                   'Location'                    = 'eastus'
                   'TemplateFile'                = $_.FullName
                   'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
                   'SkipTemplateParameterPrompt' = $true
               }
               $deploymentCommand = 'New-AzSubscriptionDeployment'
-              New-AzSubscriptionDeployment @parameters -WhatIf
+              New-AzSubscriptionDeployment @parameters
           }
  ########################################################################
  #                       G  O   L   D                                   #
@@ -116,14 +120,18 @@ jobs:
         run: |
           $enviornment = "gold"
           Get-ChildItem -Recurse -Path ./referenceImplementations/core/subscriptionTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+
+              Write-Warning "Processing Deployment: $_"
+
               $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+
               $parameters = @{
-                  'Name'                        = 'azops'
+                  'Name'                        = ('azops-' + $_.BaseName)
                   'Location'                    = 'eastus'
                   'TemplateFile'                = $_.FullName
                   'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
                   'SkipTemplateParameterPrompt' = $true
               }
               $deploymentCommand = 'New-AzSubscriptionDeployment'
-              New-AzSubscriptionDeployment @parameters -WhatIf
+              New-AzSubscriptionDeployment @parameters
           }

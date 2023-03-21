@@ -1,5 +1,5 @@
 ---
-name: "e2e-deploy-mgmt-subscription"
+name: "e2e-deploy-subscription-management"
 
 on:
   push:
@@ -45,12 +45,12 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true 
 
-      - name: 'modules'
+      - name: 'install modules'
         shell: pwsh
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: alpha-context-set
+      - name: set context alpha
         uses: azure/powershell@v1
         with:
           inlineScript: |
@@ -85,7 +85,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           allow-no-subscriptions: true
-          enable-AzPSSession: true 
+          enable-AzPSSession: true
 
       - name: 'modules'
         shell: pwsh

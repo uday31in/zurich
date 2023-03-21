@@ -10,6 +10,9 @@
     },
     "automationAccountName": {
       "value": "austinalpha1aa"
+    },
+    "eventHubNamespaceName": {
+      "value": "austinalpha1ehn"
     }
   }
 }

@@ -10,6 +10,9 @@
     },
     "automationAccountName": {
       "value": "austingold1aa"
+    },
+    "eventHubNamespaceName": {
+      "value": "austingold1ehn"
     }
   }
 }

@@ -101,4 +101,4 @@ jobs:
 
       - name: 'gold deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment gold -subscription -subscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4 -path ./referenceImplementations/core/subscriptionTemplates/management/storage/
+        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment gold -subscription -subscriptionId f9ba0167-1fc6-425a-b052-0fbc9937a80f -path ./referenceImplementations/core/subscriptionTemplates/management/storage/

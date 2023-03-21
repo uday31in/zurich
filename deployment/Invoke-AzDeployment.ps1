@@ -49,6 +49,7 @@ process {
                 'TemplateParameterFile'       = $templateParameterFile
                 'SkipTemplateParameterPrompt' = $true
             }
+            Write-Host $parameters
             $deploymentCommand = 'New-AzSubscriptionDeployment'
             New-AzSubscriptionDeployment @parameters
         }
@@ -67,6 +68,7 @@ process {
                 'TemplateParameterFile'       = $templateParameterFile
                 'SkipTemplateParameterPrompt' = $true
             }
+            Write-Host $parameters
             $deploymentCommand = 'New-AzManagementGroupDeployment'
             New-AzManagementGroupDeployment @parameters
         }

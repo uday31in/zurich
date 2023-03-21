@@ -65,30 +65,9 @@ jobs:
       - name: 'Deploy Alpha'
         shell: pwsh
         run: |
-           $enviornment = 'alpha'
-           Write-Information "Enviornment: $enviornment"
-           Write-Warning "Enviornment: $enviornment"
-           Get-ChildItem -Recurse -Path referenceImplementations/core/managementGroupTemplates/ -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+           ./deployment/Invoke-AzDeployment.ps1
+           Invoke-AzDeployment -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy
 
-            Write-Information "Processing Deployment: $_"
-
-            $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue
-            $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
-            $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
-
-            $parameters = @{
-                'Name'                        = 'azops'
-                'Location'                    = 'eastus'
-                'ManagementGroupId'           = $managementGroupID
-                'TemplateFile'                = $_.FullName
-                'TemplateParameterFile'       = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
-                #'TemplateParameterObject'     = @{scope='alpha'}
-                'SkipTemplateParameterPrompt' = $true
-            }
-            $deploymentCommand = 'New-AzManagementGroupDeployment'
-            Write-Information "Starting : $deploymentCommand"
-            New-AzManagementGroupDeployment @parameters
-           }
  ########################################################################
  #                       G  O   L   D                                   #
  ########################################################################

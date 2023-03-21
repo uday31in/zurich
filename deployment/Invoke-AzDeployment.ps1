@@ -15,7 +15,7 @@ function Invoke-AzDeployment {
         $location = "eastus",
 
         [string]
-        $path = "./referenceImplementations/core/",
+        $path = "./referenceImplementations/core/managementGroupTemplates/policyAssignments",
 
         [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
         [switch]$subscription,

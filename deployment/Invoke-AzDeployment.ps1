@@ -7,6 +7,7 @@ param (
     $Mode = "Incremental",
 
     [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+    [ValidateSet('alpha','gold')]
     $enviornment = "alpha",
 
     [string]

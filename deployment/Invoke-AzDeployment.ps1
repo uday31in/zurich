@@ -1,7 +1,7 @@
 param (
     [Parameter(ValueFromPipelineByPropertyName = $true)]
     [string]
-    $DeploymentName,
+    $deploymentName,
 
     [string]
     $Mode = "Incremental",
@@ -29,7 +29,7 @@ process {
 
         $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
         $templateParameterFile = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
-        $deploymentName = ($deploymentName) ? $deploymentName : ('azops-' + $_.BaseName)
+        $name = ($deploymentName) ? $deploymentName : ('azops-' + $_.BaseName)
         if ($deploymentName.Length -gt 53) { $deploymentName = $deploymentName.SubString(0, 53) }
 
         if ($subscriptionId) {
@@ -37,7 +37,7 @@ process {
             Set-AzContext -Subscription $subscriptionId
 
             $parameters = @{
-                'Name'                        = $deploymentName
+                'Name'                        = $name
                 'Location'                    = $location
                 'TemplateFile'                = $_.FullName
                 'TemplateParameterFile'       = $templateParameterFile
@@ -50,7 +50,7 @@ process {
         elseif($managementGroupId){
 
             $parameters = @{
-                'Name'                        = $deploymentName
+                'Name'                        = $name
                 'Location'                    = $location
                 'ManagementGroupId'           = $managementGroupId
                 'TemplateFile'                = $_.FullName

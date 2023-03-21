@@ -62,11 +62,14 @@ jobs:
         run: |
           Get-AzManagementGroup
 
-      - name: 'deploy Alpha'
+      - name: 'import deployment script'
         shell: pwsh
         run: ./deployment/Invoke-AzDeployment.ps1
 
-
+      - name: 'deploy Alpha'
+        shell: pwsh
+        run: |
+           Invoke-AzDeployment -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy
  ########################################################################
  #                       G  O   L   D                                   #
  ########################################################################

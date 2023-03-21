@@ -1,80 +1,78 @@
-function Invoke-AzDeployment {
-    [CmdletBinding(SupportsShouldProcess = $true)]
-    param (
-        [Parameter(ValueFromPipelineByPropertyName = $true)]
-        [string]
-        $DeploymentName = "azops-template-deployment",
+param (
+    [Parameter(ValueFromPipelineByPropertyName = $true)]
+    [string]
+    $DeploymentName = "azops-template-deployment",
 
-        [string]
-        $Mode = "Incremental",
+    [string]
+    $Mode = "Incremental",
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        $enviornment = "alpha",
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+    $enviornment = "alpha",
 
-        [string]
-        $location = "eastus",
+    [string]
+    $location = "eastus",
 
-        [string]
-        $path = "./referenceImplementations/core/managementGroupTemplates/policyAssignments",
+    [string]
+    $path = "./referenceImplementations/core/managementGroupTemplates/policyAssignments",
 
-        [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
-        [switch]$subscription,
+    [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
+    [switch]$subscription,
 
-        [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
-        [string]$subscriptionId,
+    [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
+    [string]$subscriptionId,
 
-        [Parameter(ParameterSetName = "managementGroup", Mandatory = $true, ValueFromPipeline = $true)]
-        [switch]$managementGroup,
+    [Parameter(ParameterSetName = "managementGroup", Mandatory = $true, ValueFromPipeline = $true)]
+    [switch]$managementGroup,
 
-        [Parameter(ParameterSetName = "managementGroup", Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$ManagementGroupId
-    )
-    process {
-        Get-ChildItem -Recurse -Path $path -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+    [Parameter(ParameterSetName = "managementGroup", Mandatory = $false, ValueFromPipeline = $true)]
+    [string]$ManagementGroupId
+)
+process {
+    Get-ChildItem -Recurse -Path $path -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
 
-            Write-Warning "Processing Deployment: $_"
+        Write-Warning "Processing Deployment: $_"
 
-            $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
-            $templateParameterFile = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
-            $deploymentName = ($deploymentName) ? $deploymentName : ('azops-' + $_.BaseName)
-            if ($deploymentName.Length -gt 53) { $deploymentName = $deploymentName.SubString(0, 53) }
+        $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+        $templateParameterFile = ((Test-Path $parameterFile) ? $parameterFile : "./emptyParameters.json")
+        $deploymentName = ($deploymentName) ? $deploymentName : ('azops-' + $_.BaseName)
+        if ($deploymentName.Length -gt 53) { $deploymentName = $deploymentName.SubString(0, 53) }
 
-            if ($subscription) {
+        if ($subscription) {
 
-                Set-AzContext -Subscription $subscriptionId
+            Set-AzContext -Subscription $subscriptionId
 
-                $parameters = @{
-                    'Name'                        = $deploymentName
-                    'Location'                    = $location
-                    'TemplateFile'                = $_.FullName
-                    'TemplateParameterFile'       = $templateParameterFile
-                    'SkipTemplateParameterPrompt' = $true
-                }
-                $deploymentCommand = 'New-AzSubscriptionDeployment'
-                New-AzSubscriptionDeployment @parameters
+            $parameters = @{
+                'Name'                        = $deploymentName
+                'Location'                    = $location
+                'TemplateFile'                = $_.FullName
+                'TemplateParameterFile'       = $templateParameterFile
+                'SkipTemplateParameterPrompt' = $true
             }
-            elseif ($managementGroup) {
+            $deploymentCommand = 'New-AzSubscriptionDeployment'
+            New-AzSubscriptionDeployment @parameters
+        }
+        elseif ($managementGroup) {
 
-                if (-not $managementGroupID) {
-                    $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue -WarningAction:SilentlyContinue
-                    $ManagementGroupId = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
-                }
+            if (-not $managementGroupID) {
+                $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue -WarningAction:SilentlyContinue
+                $ManagementGroupId = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
+            }
 
-                $parameters = @{
-                    'Name'                        = $deploymentName
-                    'Location'                    = $location
-                    'ManagementGroupId'           = $managementGroupID
-                    'TemplateFile'                = $_.FullName
-                    'TemplateParameterFile'       = $templateParameterFile
-                    'SkipTemplateParameterPrompt' = $true
-                }
-                $deploymentCommand = 'New-AzManagementGroupDeployment'
-                New-AzManagementGroupDeployment @parameters
+            $parameters = @{
+                'Name'                        = $deploymentName
+                'Location'                    = $location
+                'ManagementGroupId'           = $managementGroupID
+                'TemplateFile'                = $_.FullName
+                'TemplateParameterFile'       = $templateParameterFile
+                'SkipTemplateParameterPrompt' = $true
             }
-            else {
-                Write-Warning "No Scope specified"
-            }
+            $deploymentCommand = 'New-AzManagementGroupDeployment'
+            New-AzManagementGroupDeployment @parameters
+        }
+        else {
+            Write-Warning "No Scope specified"
         }
     }
 }
+
 #Invoke-AzDeployment

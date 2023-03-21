@@ -67,7 +67,7 @@ jobs:
 
 
   gold:
-    needs: alpha
+    #needs: alpha
 
     name: "gold"
     runs-on: ubuntu-latest

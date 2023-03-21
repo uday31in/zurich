@@ -1,7 +1,7 @@
 param (
     [Parameter(ValueFromPipelineByPropertyName = $true)]
     [string]
-    $DeploymentName = "azops-template-deployment",
+    $DeploymentName,
 
     [string]
     $Mode = "Incremental",

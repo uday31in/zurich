@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'referenceImplementations/core/subscriptionTemplates/management/**'
+      - 'austin/core/subscriptionTemplates/**'
   workflow_dispatch:
 
 permissions:

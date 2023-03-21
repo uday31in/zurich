@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'referenceImplementations/core/managementGroupTemplates/**'
+      - 'austin/core/managementGroupTemplates/**'
   workflow_dispatch:
 
 permissions:
@@ -57,14 +57,9 @@ jobs:
             Get-AzContext
           azPSVersion: "latest"
 
-      - name: 'get alpha Management Group'
-        shell: pwsh
-        run: |
-          Get-AzManagementGroup
-
       - name: 'alpha deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy 
+        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment alpha -path ./austin/managementGroupTemplates
 
 
 # ########################################################################
@@ -105,12 +100,7 @@ jobs:
             Get-AzContext
           azPSVersion: "latest"
 
-      - name: 'get gold Management Group'
-        shell: pwsh
-        run: |
-          Get-AzManagementGroup
-
       - name: 'gold deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment gold -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy
+        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment gold -path ./austin/managementGroupTemplates
 

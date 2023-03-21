@@ -14,7 +14,7 @@ param (
     $location = "eastus",
 
     [string]
-    $path = "./referenceImplementations/core/managementGroupTemplates/policyAssignments",
+    $path,
 
     [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
     [switch]$subscription,

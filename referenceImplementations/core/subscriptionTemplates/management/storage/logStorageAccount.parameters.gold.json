@@ -6,13 +6,13 @@
             "value": "gold-1-nwlog-eastus"
         },
         "storageAccountName": {
-            "value": "gold1eastusfgrdc55fji"
+            "value": "gold1eastusfgrdc55fjj"
         },
         "storageLocation": {
             "value": "eastus"
         },
         "logAnalyticsWorkspaceId": {
-            "value": "/subscriptions/f86ad04a-4680-4eae-84b1-557f52d9bffc/resourceGroups/gold-1-mgmt/providers/Microsoft.OperationalInsights/workspaces/gold-1-law"
+            "value": "/subscriptions/f9ba0167-1fc6-425a-b052-0fbc9937a80f/resourceGroups/gold-1-mgmt1/providers/Microsoft.OperationalInsights/workspaces/gold-1-law"
         }
     }
 }

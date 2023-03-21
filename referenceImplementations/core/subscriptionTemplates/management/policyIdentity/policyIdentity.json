@@ -37,13 +37,10 @@
                     "scope": "inner"
                 },
                 "parameters": {
-                    "resourceGroupName": {
-                        "value": "[parameters('resourceGroupName')]"
-                    },
-                    "managedIdentityName": {
+                    "uaIdentityName": {
                         "value": "[parameters('managedIdentityName')]"
                     },
-                    "location": {
+                    "azureLocation": {
                         "value": "[parameters('location')]"
                     }
                 },
@@ -51,13 +48,10 @@
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {
-                        "resourceGroupName": {
+                        "uaIdentityName": {
                             "type": "string"
                         },
-                        "managedIdentityName": {
-                            "type": "string"
-                        },
-                        "location": {
+                        "azureLocation": {
                             "type": "string"
                         }
                     },
@@ -65,14 +59,14 @@
                         {
                             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
                             "apiVersion": "2023-01-31",
-                            "name": "[parameters('managedIdentityName')]",
-                            "location": "[parameters('location')]"
+                            "name": "[parameters('uaIdentityName')]",
+                            "location": "[parameters('azureLocation')]"
                         }
                     ],
                     "outputs": {
                         "innerObjectId": {
                             "type": "string",
-                            "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName')), '2023-01-31').principalId]"
+                            "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('uaIdentityName')), '2023-01-31').principalId]"
                         }
                     }
                 }

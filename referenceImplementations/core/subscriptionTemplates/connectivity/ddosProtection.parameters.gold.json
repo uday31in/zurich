@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
-            "value": "alpha-1-ddos"
+            "value": "gold-1-ddos"
         },
         "location": {
             "value": "eastus"
         },
         "ddosName": {
-            "value": "alpha-1-ddos-plan"
+            "value": "gold-1-ddos-plan"
         }
     }
 }

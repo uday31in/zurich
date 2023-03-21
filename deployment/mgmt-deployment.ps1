@@ -13,16 +13,19 @@ function Invoke-AzDeployment {
 
     )
     process {
-        Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
+
+        Get-ChildItem -Recurse -Path ./referenceImplementations/core/managementGroupTemplates/policyAssignments -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
 
             Write-Warning "Processing Deployment: $_"
 
-            $rootMgmtName = Get-AzManagementGroup -GroupName 'alpha' -ErrorVariable errorVariable -ErrorAction SilentlyContinue
+            $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue -WarningAction:SilentlyContinue
             $managementGroupID = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
-            $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + "." + $enviornment + $_.Extension))
+            $parameterFile = (Join-Path $_.Directory.FullName -ChildPath ($_.BaseName + ".parameters." + $enviornment + $_.Extension))
+            $deploymentName = ('azops-' + $_.BaseName)
+            if ($deploymentName.Length -gt 53) { $deploymentName = $deploymentName.SubString(0, 53) }
 
             $parameters = @{
-                'Name'                        = ('azops-' + $_.BaseName)
+                'Name'                        = $deploymentName
                 'Location'                    = 'eastus'
                 'ManagementGroupId'           = $managementGroupID
                 'TemplateFile'                = $_.FullName
@@ -35,4 +38,4 @@ function Invoke-AzDeployment {
         }
     }
 }
-Invoke-AzDeployment
+#Invoke-AzDeployment

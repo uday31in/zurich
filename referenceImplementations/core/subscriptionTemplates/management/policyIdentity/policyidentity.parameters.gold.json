@@ -5,11 +5,11 @@
         "resourceGroupName": {
             "value": "gold-1-policy-identity"
         },
-        "managedIdentityName": {
-            "value": "gold-1-policy-identity"
-        },
         "location": {
             "value": "eastus"
+        },
+        "managedIdentityName": {
+            "value": "gold-1-policy-identity"
         }
     }
 }

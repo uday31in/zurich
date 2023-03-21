@@ -1,0 +1,18 @@
+{
+  "schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contenVersion": "1.0.0.0",
+  "parameters": {
+    "logAnalyticsWorkspaceId": {
+      "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourceGroups/austin-alpha1-law/providers/Microsoft.OperationalInsights/workspaces/austinalpha1law"
+    },
+    "storageLocation": {
+      "value": "eastus"
+    },
+    "storageAccountName": {
+      "value": "austinalpha1str1"
+    },
+    "mgmtStorageRgName": {
+      "value": "austin-alpha1-storage"
+    }
+  }
+}

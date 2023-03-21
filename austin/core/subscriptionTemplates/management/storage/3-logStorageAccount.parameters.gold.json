@@ -1,0 +1,18 @@
+{
+  "schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contenVersion": "1.0.0.0",
+  "parameters": {
+    "logAnalyticsWorkspaceId": {
+      "value": "/subscriptions/f9ba0167-1fc6-425a-b052-0fbc9937a80f/resourceGroups/austin-gold1-law/providers/Microsoft.OperationalInsights/workspaces/austingold1law"
+    },
+    "storageLocation": {
+      "value": "eastus"
+    },
+    "storageAccountName": {
+      "value": "austingold1str1"
+    },
+    "mgmtStorageRgName": {
+      "value": "austin-gold1-storage"
+    }
+  }
+}

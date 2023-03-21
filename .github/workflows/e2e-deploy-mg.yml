@@ -62,15 +62,9 @@ jobs:
         run: |
           Get-AzManagementGroup
 
-      - name: 'import deployment script'
+      - name: 'alpha deployment'
         shell: pwsh
         run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy 
-
-      - name: 'deploy Alpha'
-        shell: pwsh
-        run: |
-           Invoke-AzDeployment -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy 
-
 
 
 # ########################################################################
@@ -91,7 +85,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "azure login"
+      - name: "azure login - gold"
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -99,19 +93,24 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: 'modules'
+      - name: 'install modules'
         shell: pwsh
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: 'Get Gold Management Group'
+      - name: get gold-context
         uses: azure/powershell@v1
         with:
           inlineScript: |
             Get-AzContext
           azPSVersion: "latest"
 
-      - name: 'Deploy Gold'
+      - name: 'get gold Management Group'
         shell: pwsh
         run: |
           Get-AzManagementGroup
+
+      - name: 'gold deployment'
+        shell: pwsh
+        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment gold -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy
+

@@ -17,16 +17,10 @@ param (
     $path,
 
     [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
-    [switch]$subscription,
-
-    [Parameter(ParameterSetName = "subscription", Mandatory = $true, ValueFromPipeline = $true)]
     [string]$subscriptionId,
 
-    [Parameter(ParameterSetName = "managementGroup", Mandatory = $true, ValueFromPipeline = $true)]
-    [switch]$managementGroup,
-
     [Parameter(ParameterSetName = "managementGroup", Mandatory = $false, ValueFromPipeline = $true)]
-    [string]$ManagementGroupId
+    [string]$managementGroupId
 )
 process {
     Get-ChildItem -Recurse -Path $path -Filter *.json -Exclude *.gold.json, *.alpha.json  | % {
@@ -38,7 +32,7 @@ process {
         $deploymentName = ($deploymentName) ? $deploymentName : ('azops-' + $_.BaseName)
         if ($deploymentName.Length -gt 53) { $deploymentName = $deploymentName.SubString(0, 53) }
 
-        if ($subscription) {
+        if ($subscriptionId) {
 
             Set-AzContext -Subscription $subscriptionId
 
@@ -53,17 +47,12 @@ process {
             $deploymentCommand = 'New-AzSubscriptionDeployment'
             New-AzSubscriptionDeployment @parameters
         }
-        elseif ($managementGroup) {
-
-            if (-not $managementGroupID) {
-                $rootMgmtName = Get-AzManagementGroup -GroupName $enviornment -ErrorVariable errorVariable -ErrorAction SilentlyContinue -WarningAction:SilentlyContinue
-                $ManagementGroupId = ($errorVariable) ? ((Get-AzContext).Tenant.Id) :($rootMgmtName).Name
-            }
+        else{
 
             $parameters = @{
                 'Name'                        = $deploymentName
                 'Location'                    = $location
-                'ManagementGroupId'           = $managementGroupID
+                'ManagementGroupId'           = $managementGroupId
                 'TemplateFile'                = $_.FullName
                 'TemplateParameterFile'       = $templateParameterFile
                 'SkipTemplateParameterPrompt' = $true

@@ -59,7 +59,7 @@ jobs:
 
       - name: 'alpha deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment alpha -path ./austin/managementGroupTemplates
+        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment alpha -managementGroupId austin-alpha1 -path ./austin/managementGroupTemplates
 
 
 # ########################################################################
@@ -102,5 +102,5 @@ jobs:
 
       - name: 'gold deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -managementGroup -enviornment gold -path ./austin/managementGroupTemplates
+        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment gold -managementGroupId austin-gold1 -path ./austin/managementGroupTemplates
 

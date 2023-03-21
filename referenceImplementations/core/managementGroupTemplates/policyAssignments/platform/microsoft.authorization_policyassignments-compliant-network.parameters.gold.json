@@ -90,7 +90,7 @@
       "value": "Default"
     },
     "scope": {
-      "value": "/providers/Microsoft.Management/managementGroups/gold/gold-landingzones"
+      "value": "/providers/Microsoft.Management/managementGroups/gold-landingzones"
     },
     "policyDefinitionId": {
       "value": "/providers/Microsoft.Management/managementGroups/gold/providers/Microsoft.Authorization/policySetDefinitions/Compliant-Network"

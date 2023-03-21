@@ -90,7 +90,7 @@
       "value": "Default"
     },
     "scope": {
-      "value": "/providers/Microsoft.Management/managementGroups/alpha/alpha-landingzones"
+      "value": "/providers/Microsoft.Management/managementGroups/alpha-landingzones"
     },
     "policyDefinitionId": {
       "value": "/providers/Microsoft.Management/managementGroups/alpha/providers/Microsoft.Authorization/policySetDefinitions/Compliant-Network"

@@ -47,7 +47,7 @@ process {
             $deploymentCommand = 'New-AzSubscriptionDeployment'
             New-AzSubscriptionDeployment @parameters
         }
-        else{
+        elseif($managementGroupId){
 
             $parameters = @{
                 'Name'                        = $deploymentName

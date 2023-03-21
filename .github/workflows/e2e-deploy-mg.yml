@@ -45,28 +45,27 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: 'modules'
+      - name: 'install modules'
         shell: pwsh
         run: |
           Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
-      - name: alpha-context
+      - name: get alpha-context
         uses: azure/powershell@v1
         with:
           inlineScript: |
             Get-AzContext
           azPSVersion: "latest"
 
-      - name: 'Get Alpha Management Group'
+      - name: 'get alpha Management Group'
         shell: pwsh
         run: |
           Get-AzManagementGroup
 
-      - name: 'Deploy Alpha'
+      - name: 'deploy Alpha'
         shell: pwsh
-        run: |
-           ./deployment/Invoke-AzDeployment.ps1
-           Invoke-AzDeployment -managementGroup -enviornment alpha -path ./referenceImplementations/core/managementGroupTemplates/policyAssignments/platform/ -DeploymentName policy
+        run: ./deployment/Invoke-AzDeployment.ps1
+
 
  ########################################################################
  #                       G  O   L   D                                   #

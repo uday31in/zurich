@@ -1,0 +1,15 @@
+{
+  "schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contenVersion": "1.0.0.0",
+  "parameters": {
+    "rgName": {
+      "value": "austin-gold1-law"
+    },
+    "workspaceName": {
+      "value": "austingold1law"
+    },
+    "automationAccountName": {
+      "value": "austingold1aa"
+    }
+  }
+}

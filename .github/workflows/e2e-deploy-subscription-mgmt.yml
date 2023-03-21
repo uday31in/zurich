@@ -59,7 +59,7 @@ jobs:
 
       - name: 'alpha deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1  -enviornment alpha -subscription -subscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4 -path ./referenceImplementations/core/subscriptionTemplates/management/policyIdentity/
+        run: ./deployment/Invoke-AzDeployment.ps1  -enviornment alpha -subscription -subscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4 -path ./referenceImplementations/core/subscriptionTemplates/management/storage/
 
  ########################################################################
  #                       G  O   L   D                                   #
@@ -101,4 +101,4 @@ jobs:
 
       - name: 'gold deployment'
         shell: pwsh
-        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment gold -subscription -subscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4 -path ./referenceImplementations/core/subscriptionTemplates/management/policyIdentity/
+        run: ./deployment/Invoke-AzDeployment.ps1 -enviornment gold -subscription -subscriptionId bbe4a470-835d-4188-a6a6-ce0c1810ddf4 -path ./referenceImplementations/core/subscriptionTemplates/management/storage/

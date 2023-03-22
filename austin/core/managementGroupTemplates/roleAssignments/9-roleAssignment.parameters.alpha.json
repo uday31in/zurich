@@ -1,0 +1,15 @@
+{
+  "schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contenVersion": "1.0.0.0",
+  "parameters": {
+    "roleDefinitionId": {
+      "value": "b24988ac-6180-42a0-ab88-20f7382dd24c"
+    },
+    "topLevelManagementGroupPrefix": {
+      "value": "austin-alpha1"
+    },
+    "principalId": {
+      "value": "fb635510-6e46-4446-b268-290b4524c030"
+    }
+  }
+}

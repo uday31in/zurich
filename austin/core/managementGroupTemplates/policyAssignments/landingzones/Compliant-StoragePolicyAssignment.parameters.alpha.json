@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "topLevelManagementGroupPrefix": {
+          "value": "austin-alpha1"
+      },
+      "scope":{
+        "value": "/providers/Microsoft.Management/managementGroups/austin-alpha1-landingzones"
+      },
+      "enforcementMode": {
+          "value": "Default"
+      },
+      "storageFileSyncDiagnostics": {
+          "value": "DeployIfNotExists"
+      },
+      "storageFileSyncLogAnalyticsWorkspaceId": {
+          "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+      },
+      "storageTableDiagnostics": {
+          "value": "DeployIfNotExists"
+      },
+      "storageTableLogAnalyticsWorkspaceId": {
+          "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+      },
+      "storageAccountsDiagnostics": {
+          "value": "DeployIfNotExists"
+      },
+      "storageAccountsLogAnalyticsWorkspaceId": {
+          "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+      },
+      "storageQueueDiagnostics": {
+          "value": "DeployIfNotExists"
+      },
+      "storageQueueLogAnalyticsWorkspaceId": {
+          "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+      },
+      "storageBlobDiagnostics": {
+          "value": "DeployIfNotExists"
+      },
+      "storageBlobLogAnalyticsWorkspaceId": {
+          "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/alpha-1-mgmt1/providers/microsoft.operationalinsights/workspaces/alpha-1-law"
+      },
+      "userAssignedIdentityResourceId": {
+        "value": "/subscriptions/bbe4a470-835d-4188-a6a6-ce0c1810ddf4/resourcegroups/austin-alpha1-umi/providers/Microsoft.ManagedIdentity/userAssignedIdentities/austin-alpha1-umi-policy"
+      }
+  }
+}
